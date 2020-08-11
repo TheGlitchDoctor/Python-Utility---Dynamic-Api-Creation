@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+    table, th, td {
+        border: 1px solid black;
+    }
+</style>
+</head>
+<body>
+<script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
+<script type="text/javascript" charset="utf-8">
+    var socket = io();
+    socket.on('connect', function() {
+        socket.emit('new user', {data: 'I\'m connected!'});
+    });
+
+    socket.on('show table', function (data) {
+        //window.location = data.url;
+        var data = data.tableData
+
+       // Draw HTML table
+    
+        html = "<table style='width:100%'>";
+
+        html += "<tr>"
+        html += "<td><b>Sr No. </b></td>"
+        html += "<td><b>Service Name</b></td>"
+        html += "<td><b>Required Parameters</b></td>"
+        html += "<td><b>Endpoint</b></td>"
+        html += "</tr>"
+        
+        // Loop through array and add table cells
+        for (var i=0; i<data.length; i++) {
+            html += "<tr>"
+            html += "<td>" + data[i][0] + "</td>";
+            html += "<td>" + data[i][1] + "</td>";
+            html += "<td>" + data[i][2] + "</td>";
+            html += "<td>" + data[i][3] + "</td>";
+            html += "</>"
+            
+        }
+        html += "</table>";
+
+        // Attach HTML to container
+        document.getElementById("container").innerHTML = html;
+    });
+
+    function startFunction() {
+        socket.emit('start service', {function: 'multiply'});
+    }
+    
+</script>
+<p align="center"><button onclick="startFunction()" class=grey style="height:75px;width:150px">USE SERVICE</button></p>
+<div id="container"></div>
+</body>
+</html>
