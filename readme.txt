@@ -1,5 +1,5 @@
 Required Library -
-    flask, flask-socketio, psutil, signal
+    flask, flask-socketio, psutil, signal, inspect
 
 NOTE - Refer functions_lookup.py file to import functions to be exposed as a service
 
